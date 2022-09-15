@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/danwhitford/protohackers/primetime"
+	"github.com/danwhitford/protohackers/meanstoanend"
 )
 
 func main() {
@@ -18,13 +18,13 @@ func main() {
 	defer l.Close()
 	for {
 		// Wait for a connection.
-		conn, err := l.Accept()
+		conn, err := l.Accept()		
 		if err != nil {
 			log.Fatal(err)
 		}
 		// Handle the connection in a new goroutine.
 		// The loop then returns to accepting, so that
 		// multiple connections may be served concurrently.
-		go primetime.HandleFunc(conn)
+		go meanstoanend.HandleFunc(conn)
 	}
 }
