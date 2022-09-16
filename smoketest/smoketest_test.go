@@ -19,12 +19,11 @@ func TestEcho(t *testing.T) {
 }
 
 func FuzzEcho(f *testing.F) {
-	testcases := []string{"Hello, world", " ", "!12345"}
-	for _, tc := range testcases {
-		f.Add(tc) // Use f.Add to provide a seed corpus
+	teststrings := []string{"Hello, world🏏", " ", "!12345"}
+	for _, ts := range teststrings {
+		f.Add([]byte(ts))
 	}
-	f.Fuzz(func(t *testing.T, orig string) {
-		b := []byte(orig)
+	f.Fuzz(func(t *testing.T, b []byte) {
 		res, err := testutils.RunClientServer(HandleFunc, b, len(b))
 
 		if err != nil {
