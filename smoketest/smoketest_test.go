@@ -36,4 +36,3 @@ func FuzzEcho(f *testing.F) {
 		}
 	})
 }
-
