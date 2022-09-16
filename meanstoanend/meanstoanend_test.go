@@ -42,7 +42,7 @@ func TestBookExample(t *testing.T) {
 }
 
 func TestBrokenSending(t *testing.T) {
-	testutils.TestBrokenSending(
+	testutils.TestClientServerBursty(
 		t,
 		HandleFunc,
 		[][]byte{
