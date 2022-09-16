@@ -24,27 +24,16 @@ func FuzzEcho(f *testing.F) {
 		f.Add([]byte(ts))
 	}
 	f.Fuzz(func(t *testing.T, b []byte) {
-		res, err := testutils.RunClientServer(HandleFunc, b, len(b))
+		res, err := testutils.RunClientServer(HandleFunc, [][]byte{b}, len(b))
 
 		if err != nil {
 			if err != io.EOF {
 				t.Fatal(err)
 			}
 		}
-		if !Compare(b, res) {
+		if !testutils.Equals(b, res) {
 			t.Fatalf("Not equal:\n%v\n%v", b, res)
 		}
 	})
 }
 
-func Compare(a, b []byte) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
-}
